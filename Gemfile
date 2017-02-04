@@ -54,4 +54,6 @@ group :development, :test do
   gem 'web-console', '~> 2.0'
 end
 
+gem 'bcrypt', '~> 3.1.7'
+
 ruby '2.1.5'
