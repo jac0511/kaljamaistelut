@@ -6,4 +6,6 @@ class User < ActiveRecord::Base
   
   has_many :ratings, dependent: :destroy
   has_many :beers, -> { uniq }, through: :ratings
+  has_many :memberships, dependent: :destroy
+  has_many :beer_clubs, -> { uniq }, through: :memberships
 end

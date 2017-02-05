@@ -5,6 +5,19 @@
 </p>
 <p>
   <% if @user.ratings.empty? %>
+    …is no in a club!
+   <% else %>
+    …has <%= pluralize(@user.memberships.count, 'membership') %>: 
+    <% @user.memberships.each do |membership| %>
+      <%= link_to membership.to_s, membership.beer_club %> 
+      <% if @user == current_user %>
+        <%= link_to '[X], ', membership, method: :delete, data: { confirm: 'serious?' } %>
+      <% end %>
+    <% end %>
+  <% end %>
+</p>
+<p>
+  <% if @user.ratings.empty? %>
     …has no rated biirs!
   <% else %>
     …has <%= pluralize(@user.ratings.count, 'rating') %>, on average <%= @user.average_rating %>: 
