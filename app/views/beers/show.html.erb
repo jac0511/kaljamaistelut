@@ -7,7 +7,7 @@
 
 <p>
   <strong>Style:</strong>
-  <%= @beer.style %>
+  <%= @beer.style.style %>
 </p>
 
 <p>
@@ -22,9 +22,16 @@
   <% end %>
 </p>
 
-<p>
-  <%= link_to 'list of breweries', breweries_path %>
-</p>
 
-<%= link_to 'Edit', edit_beer_path(@beer) %> |
-<%= link_to 'Back', beers_path %>
+<% if current_user %>
+  <h3>give a rating:</h3>
+
+  <%= form_for(@rating) do |f| %>
+    <%= f.hidden_field :beer_id %>
+    score: <%= f.number_field :score %>
+    <%= f.submit 'RATE' %>
+  <% end %>
+
+  <%= link_to 'Edit', edit_beer_path(@beer) %>
+  <%= link_to 'Destroy', @beer, method: :delete, data: { confirm: 'Are you sure?' } %>
+<% end %>

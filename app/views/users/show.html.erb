@@ -6,16 +6,25 @@
 <p>
   <% if @user.ratings.empty? %>
     …is no in a club!
-   <% else %>
+  <% else %>
     …has <%= pluralize(@user.memberships.count, 'membership') %>: 
     <% @user.memberships.each do |membership| %>
       <%= link_to membership.to_s, membership.beer_club %> 
       <% if @user == current_user %>
-        <%= link_to '[X], ', membership, method: :delete, data: { confirm: 'serious?' } %>
+        <%= link_to '[rquit], ', membership, method: :delete, data: { confirm: 'serious?' } %>
       <% end %>
     <% end %>
   <% end %>
 </p>
+
+<p>
+  <% if @user.ratings.any? %>
+    Favourite beer: <%= @user.favourite_beer.name %><br>
+    Favourite brewery: <%= @user.favourite_brewery.name %><br>
+    Favourite style: <%= @user.favourite_style %><br>
+  <% end %>
+</p>
+
 <p>
   <% if @user.ratings.empty? %>
     …has no rated biirs!
@@ -31,7 +40,8 @@
 </p>
 
 <% if @user == current_user %>
-  <%= link_to 'Edit', edit_user_path(@user) %> | 
+  <%= link_to 'Change passwd', edit_user_path(@user) %> | 
   <%= link_to 'Destroy', @user, method: :delete, data: { confirm: 'Are you sure?' } %> | 
 <% end %>
+
  <%= link_to 'Back', users_path %>
